@@ -7,12 +7,13 @@ pokemonList = [
 ];
 
 // Print each pokemon on the website with their height
-for (let i = 0; i < pokemonList.length; i++){
-    document.write(`${pokemonList[i].name} (height: ${pokemonList[i].height})`);
+pokemonList.forEach(function(pokemon) {
+    let output = `<p>${pokemon.name} (height: ${pokemon.height})`;
     // Label all huge pokemons
-    if (pokemonList[i].height > 1.5){
-        document.write(" - It's so huge!<br>");
+    if (pokemon.height > 1.5){
+        output += " - It's so huge!</p>";
     } else {
-        document.write("<br>");
+        output += "</p>";
     }
-}
+    document.write(output);
+});
