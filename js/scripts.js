@@ -37,23 +37,22 @@ let pokemonRepository = (function() {
 pokemonRepository.add({name: "Glumanda", height: 0.6, types: ["fire"]});
 
 // Print each pokemon on the website with their height
-document.write("<h2>All Pokemons</h2>");
+// document.write("<h2>All Pokemons</h2>");
 printToDocument(pokemonRepository.getAll());
 
 // Search for pokemons and print them
-document.write("<h2>Pokemons containing \"ar\" in their names</h2>");
-printToDocument(pokemonRepository.getByName("AR"));
+// document.write("<h2>Pokemons containing \"ar\" in their names</h2>");
+// printToDocument(pokemonRepository.getByName("AR"));
 
 // Function to print pokemons on the website with their height
 function printToDocument(pokemons) {
     pokemons.forEach(function(pokemon) {
-        let output = `<p>${pokemon.name} (height: ${pokemon.height})`;
-        // Label all huge pokemons
-        if (pokemon.height > 1.5){
-            output += " - It's so huge!</p>";
-        } else {
-            output += "</p>";
-        }
-        document.write(output);
+        let uPokemonList = document.querySelector(".pokemon-list");
+        let listItem = document.createElement("li");
+        let button = document.createElement("button");
+        button.innerText = pokemon.name;
+        button.classList.add("pokemon-button");
+        listItem.appendChild(button);
+        uPokemonList.appendChild(listItem);
     });
 }
