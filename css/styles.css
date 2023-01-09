@@ -51,4 +51,19 @@ p {
     border-radius: 5px;
     margin-bottom: 10px;
     width: 200px;
+    transition: 0.4s background-color;
+}
+
+.pokemon-button:hover {
+    background-color: orange;
+    cursor: pointer;
+    animation: button-shake 0.4s;
+}
+
+@keyframes button-shake {
+    0% {transform: translateX(0)}
+    25% {transform: translateX(5px)}
+    50% {transform: translateX(-5px)}
+    75% {transform: translateX(5px)}
+    100% {transform: translateX(0)}
 }

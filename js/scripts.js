@@ -36,8 +36,7 @@ let pokemonRepository = (function() {
 // Add a pokemon to the array
 pokemonRepository.add({name: "Glumanda", height: 0.6, types: ["fire"]});
 
-// Print each pokemon on the website with their height
-// document.write("<h2>All Pokemons</h2>");
+// Print each pokemon on the website
 printToDocument(pokemonRepository.getAll());
 
 // Search for pokemons and print them
