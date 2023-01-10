@@ -18,6 +18,7 @@ main {
     margin: 20px;
     line-height: 1.5;
     font-size: 1rem;
+    text-align: center;
 }
 
 h1 {
@@ -36,6 +37,10 @@ p {
     margin-top: 0;
     margin-bottom: 0;
 }
+
+/* li {
+    display: inline-block;
+} */
 
 .pokemon-list {
     list-style-type: none;
