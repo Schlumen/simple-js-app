@@ -1,6 +1,7 @@
 let pokemonRepository = (function() {
     let pokemonList = [];
     let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=1300";
+    let loadBar = document.querySelector(".lds-dual-ring");
 
     // Return functions
 
@@ -11,7 +12,7 @@ let pokemonRepository = (function() {
 
     // This function adds (pushes) a pokemon object to the pokemon array
     function add(pokemon) {
-        if (typeof pokemon === "object") {
+        if (typeof pokemon === "object" && "name" in pokemon && "detailsUrl" in pokemon) {
             pokemonList.push(pokemon);
         }
     }
@@ -49,6 +50,7 @@ let pokemonRepository = (function() {
     // This function fetches all pokemons from the api
     // ands adds them ton the array using the add function
     function loadList() {
+        showLoadingMessage();
         return fetch(apiUrl).then(function(response) {
             return response.json();
         }).then(function(json) {
@@ -61,7 +63,9 @@ let pokemonRepository = (function() {
             });
         }).catch(function(e) {
             console.error(e);
-        })
+        }).finally(function() {
+            hideLoadingMessage();
+        });
     }
 
     // This function adds details to a specific pokemon object on the array
@@ -79,6 +83,18 @@ let pokemonRepository = (function() {
         });
     }
 
+    // This function shows a loading animation
+    function showLoadingMessage() {
+        loadBar.classList.remove("lds-dual-ring-hidden");
+        loadBar.classList.add("lds-dual-ring-visible");
+    }
+
+    // This function hides the loading animation
+    function hideLoadingMessage() {
+        loadBar.classList.remove("lds-dual-ring-visible");
+        loadBar.classList.add("lds-dual-ring-hidden");
+    }
+
     // Return object with the same names for keys as values
     return {
         getAll: getAll,
@@ -86,7 +102,8 @@ let pokemonRepository = (function() {
         getByName: getByName,
         addListItem: addListItem,
         loadList: loadList,
-        loadDetails: loadDetails
+        loadDetails: loadDetails,
+        showDetails: showDetails
     };
 })();
 
