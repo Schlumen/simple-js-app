@@ -2,6 +2,7 @@ let pokemonRepository = (function() {
     let pokemonList = [];
     let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=1300";
     let loadBar = document.querySelector(".lds-dual-ring");
+    let modalContainer = document.querySelector("#modal-container");
 
     // Return functions
 
@@ -43,7 +44,7 @@ let pokemonRepository = (function() {
     // This function logs the given pokemon details on the console
     function showDetails(pokemon) {
         loadDetails(pokemon).then(function() {
-            console.log(pokemon);
+            showModal(pokemon);
         });
     }
 
@@ -93,6 +94,36 @@ let pokemonRepository = (function() {
     function hideLoadingMessage() {
         loadBar.classList.remove("lds-dual-ring-visible");
         loadBar.classList.add("lds-dual-ring-hidden");
+    }
+
+    function showModal(pokemon) {
+        modalContainer.innerHTML = "";
+        modalContainer.addEventListener("click", (e) => {
+            if (e.target === modalContainer) {
+                hideModal();
+            }
+        });
+
+        let modal = document.createElement("div");
+        modal.classList.add("modal");
+
+        let closeButton = document.createElement("button");
+        closeButton.classList.add("modal-close");
+        closeButton.innerText = "CLOSE";
+        closeButton.addEventListener("click", hideModal);
+
+        let modalTitle = document.createElement("h3");
+        modalTitle.innerText = pokemon.name;
+
+        modal.appendChild(closeButton);
+        modal.appendChild(modalTitle);
+
+        modalContainer.appendChild(modal);
+        modalContainer.classList.add("is-visible");
+    }
+
+    function hideModal() {
+        modalContainer.classList.remove("is-visible");
     }
 
     // Return object with the same names for keys as values
