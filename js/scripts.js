@@ -79,6 +79,7 @@ let pokemonRepository = (function() {
             item.imageUrl = details.sprites.front_default;
             item.height = details.height;
             item.types = details.types;
+            item.weight = details.weight;
         }).catch(function(e) {
             console.error(e);
         });
@@ -96,6 +97,7 @@ let pokemonRepository = (function() {
         loadBar.classList.add("lds-dual-ring-hidden");
     }
 
+    // This function shows a modal with the pokemon details
     function showModal(pokemon) {
         modalContainer.innerHTML = "";
         modalContainer.addEventListener("click", (e) => {
@@ -115,13 +117,27 @@ let pokemonRepository = (function() {
         let modalTitle = document.createElement("h3");
         modalTitle.innerText = pokemon.name;
 
+        let modalPicture = document.createElement("img");
+        modalPicture.src = pokemon.imageUrl;
+
+        let types = "";
+        pokemon.types.forEach(function(type) {
+            types += type.type.name + " ";
+        });
+
+        let modalText = document.createElement("p");
+        modalText.innerText = `Height: ${pokemon.height}\nWeight: ${pokemon.weight}\nTypes: ${types}`;
+
         modal.appendChild(closeButton);
         modal.appendChild(modalTitle);
+        modal.appendChild(modalPicture);
+        modal.appendChild(modalText);
 
         modalContainer.appendChild(modal);
         modalContainer.classList.add("is-visible");
     }
 
+    // This function hides the pokemon details modal
     function hideModal() {
         modalContainer.classList.remove("is-visible");
     }
@@ -134,7 +150,10 @@ let pokemonRepository = (function() {
         addListItem: addListItem,
         loadList: loadList,
         loadDetails: loadDetails,
-        showDetails: showDetails
+        showDetails: showDetails,
+        showModal: showModal,
+        hideModal: hideModal,
+        modalContainer: modalContainer
     };
 })();
 
@@ -144,3 +163,10 @@ pokemonRepository.loadList().then(function() {
         pokemonRepository.addListItem(pokemon);
     });
 });
+
+// Add event listener to close modal on esc key press
+window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && pokemonRepository.modalContainer.classList.contains("is-visible")) {
+        pokemonRepository.hideModal();
+    }
+})
