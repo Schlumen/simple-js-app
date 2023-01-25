@@ -3,6 +3,15 @@ let pokemonRepository = (function() {
     let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=1300";
     let loadBar = document.querySelector(".lds-dual-ring");
 
+    let searchButton = $(".btn-warning");
+    searchButton.on("click", function() {
+        let uPokemonList = $(".pokemon-list");
+        uPokemonList.empty();
+        getByName($(".form-control").val()).forEach(function(pokemon) {
+            addListItem(pokemon);
+        });
+    })
+
     // Return functions
 
     // This function return the entire pokemon array
@@ -117,6 +126,15 @@ let pokemonRepository = (function() {
         modalBody.append(`<p>Types: ${types}</p>`);
     }
 
+    // Load Pokemons from the API and print each pokemon on the website
+    function loadAll() {
+        loadList().then(function() {
+            getAll().forEach(function(pokemon) {
+                addListItem(pokemon);
+            });
+        });
+    }
+
     // Return object with the same names for keys as values
     return {
         getAll: getAll,
@@ -127,12 +145,8 @@ let pokemonRepository = (function() {
         loadDetails: loadDetails,
         showDetails: showDetails,
         showModal: showModal,
+        loadAll: loadAll
     };
 })();
 
-// Load Pokemons from the API and print each pokemon on the website
-pokemonRepository.loadList().then(function() {
-    pokemonRepository.getAll().forEach(function(pokemon) {
-        pokemonRepository.addListItem(pokemon);
-    });
-});
+pokemonRepository.loadAll();

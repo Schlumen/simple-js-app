@@ -7,11 +7,27 @@ body {
     font-family: 'Rubik', sans-serif;
 }
 
-header {
+.navbar {
     background-color: orange;
-    text-align: center;
-    padding: 10px;
+    line-height: 1;
     text-transform: uppercase;
+}
+
+.btn-warning {
+    background-color: orangered;
+    border: none;
+}
+
+.btn-warning:hover {
+    background-color: red;
+}
+
+.btn-warning:active {
+    background-color: darkred;
+}
+
+.form-control {
+    border: none;
 }
 
 main {
@@ -21,10 +37,11 @@ main {
     text-align: center;
 }
 
-h1 {
+.h1 {
     margin: 0;
     font-size: 2.5rem;
     font-weight: 800;
+    text-align: center;
 }
 
 h2 {
