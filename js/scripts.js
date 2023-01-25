@@ -2,7 +2,6 @@ let pokemonRepository = (function() {
     let pokemonList = [];
     let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=1300";
     let loadBar = document.querySelector(".lds-dual-ring");
-    let modalContainer = document.querySelector("#modal-container");
 
     // Return functions
 
@@ -29,16 +28,17 @@ let pokemonRepository = (function() {
     // This function adds a button to the website with the pokemon name
     // and an event listener that calls the showDetails function on click
     function addListItem(pokemon) {
-        let uPokemonList = document.querySelector(".pokemon-list");
-        let listItem = document.createElement("li");
-        let button = document.createElement("button");
-        button.innerText = pokemon.name;
-        button.classList.add("pokemon-button");
-        button.addEventListener("click", function() {
+        let uPokemonList = $(".pokemon-list");
+        let listItem = $('<li class="group-list-item"></li>');
+        let button = $(`<button type="button" class="pokemon-button btn btn-primary" 
+            data-toggle="modal" data-target="#pokeModal">${pokemon.name}</button>`);
+
+        listItem.append(button);
+        uPokemonList.append(listItem);
+
+        button.on("click", function() {
             showDetails(pokemon);
         });
-        listItem.appendChild(button);
-        uPokemonList.appendChild(listItem);
     }
 
     // This function logs the given pokemon details on the console
@@ -99,47 +99,22 @@ let pokemonRepository = (function() {
 
     // This function shows a modal with the pokemon details
     function showModal(pokemon) {
-        modalContainer.innerHTML = "";
-        modalContainer.addEventListener("click", (e) => {
-            if (e.target === modalContainer) {
-                hideModal();
-            }
-        });
-
-        let modal = document.createElement("div");
-        modal.classList.add("modal");
-
-        let closeButton = document.createElement("button");
-        closeButton.classList.add("modal-close");
-        closeButton.innerText = "CLOSE";
-        closeButton.addEventListener("click", hideModal);
-
-        let modalTitle = document.createElement("h3");
-        modalTitle.innerText = pokemon.name;
-
-        let modalPicture = document.createElement("img");
-        modalPicture.src = pokemon.imageUrl;
-
         let types = "";
         pokemon.types.forEach(function(type) {
             types += type.type.name + " ";
         });
 
-        let modalText = document.createElement("p");
-        modalText.innerText = `Height: ${pokemon.height}\nWeight: ${pokemon.weight}\nTypes: ${types}`;
+        let modalTitile = $(".modal-title");
+        let modalBody = $(".modal-body");
 
-        modal.appendChild(closeButton);
-        modal.appendChild(modalTitle);
-        modal.appendChild(modalPicture);
-        modal.appendChild(modalText);
+        modalTitile.empty();
+        modalBody.empty();
 
-        modalContainer.appendChild(modal);
-        modalContainer.classList.add("is-visible");
-    }
-
-    // This function hides the pokemon details modal
-    function hideModal() {
-        modalContainer.classList.remove("is-visible");
+        modalTitile.append(pokemon.name);
+        modalBody.append(`<img class="modal-img" src="${pokemon.imageUrl}">`);
+        modalBody.append(`<p>Height: ${pokemon.height}</p>`);
+        modalBody.append(`<p>Weight: ${pokemon.weight}</p>`);
+        modalBody.append(`<p>Types: ${types}</p>`);
     }
 
     // Return object with the same names for keys as values
@@ -152,8 +127,6 @@ let pokemonRepository = (function() {
         loadDetails: loadDetails,
         showDetails: showDetails,
         showModal: showModal,
-        hideModal: hideModal,
-        modalContainer: modalContainer
     };
 })();
 
@@ -163,10 +136,3 @@ pokemonRepository.loadList().then(function() {
         pokemonRepository.addListItem(pokemon);
     });
 });
-
-// Add event listener to close modal on esc key press
-window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && pokemonRepository.modalContainer.classList.contains("is-visible")) {
-        pokemonRepository.hideModal();
-    }
-})
