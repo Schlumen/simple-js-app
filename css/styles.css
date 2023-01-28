@@ -20,10 +20,16 @@ body {
 
 .btn-warning:hover {
     background-color: red;
+    border: none;
 }
 
-.btn-warning:active {
-    background-color: darkred;
+.btn-warning:active, .pokemon-button:active {
+    background-color: darkred !important;
+    color: white !important;
+}
+
+.btn-warning:focus, .pokemon-button:focus, .form-control:focus {
+    box-shadow: none !important;
 }
 
 .form-control {
