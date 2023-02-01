@@ -11,7 +11,7 @@
         <title>Pokedex</title>
     </head>
     <body>
-        <nav class="navbar navbar-light">
+        <nav class="navbar navbar-light sticky-top">
             <span class="navbar-brand mb-0 h1">Pokedex</span>
             <form class="form-inline">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -26,19 +26,23 @@
             <!-- Modal -->
             <div class="modal fade" id="pokeModal" tabindex="-1" role="dialog" aria-labelledby="pokeModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="pokeModalLabel"></h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="pokeModalLabel"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                        </div>
                     </div>
-                    <div class="modal-body">
-                    </div>
-                  </div>
                 </div>
-              </div>
+            </div>
         </main>
+        <footer class="navbar navbar-light" id="footer">
+            <p>This page was created by Lumen Haendler</p>
+            <a href="https://github.com/Schlumen/simple-js-app" target="_blank">See code on GitHub</a>
+        </footer>
         <script src="js/promise-polyfill.js"></script>
         <script src="js/fetch-polyfill.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
