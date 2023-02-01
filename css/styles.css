@@ -5,12 +5,19 @@ html {
 body {
     background-color: antiquewhite;
     font-family: 'Rubik', sans-serif;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 .navbar {
     background-color: orange;
     line-height: 1;
+}
+
+.navbar-brand {
     text-transform: uppercase;
+    color: black;
 }
 
 .btn-warning {
@@ -41,6 +48,7 @@ main {
     line-height: 1.5;
     font-size: 1rem;
     text-align: center;
+    flex: 1;
 }
 
 .h1 {
@@ -68,6 +76,11 @@ p {
     font-size: 1rem;
     margin-top: 0;
     margin-bottom: 0;
+    color: black;
+}
+
+a, a:active, a:visited, a:focus {
+    color: black
 }
 
 .pokemon-list {
